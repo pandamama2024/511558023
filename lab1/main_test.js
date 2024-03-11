@@ -3,39 +3,35 @@ const assert = require('assert');
 const { MyClass, Student } = require('./main');
 
 test("Test MyClass's addStudent", () => {
-    const myClass = new MyClass();
+    const myclass = new MyClass();
     const student = new Student();
-    student.setName('John');
-    const result = myClass.addStudent(student);
-
-    assert.strictEqual(result, 0);
-    assert.strictEqual(myClass.students.length, 1);
-    assert.strictEqual(myClass.getStudentById(0), student);
+    assert.strictEqual(myclass.addStudent(""), -1);
+    assert.strictEqual(myclass.addStudent(student), 0);
 });
 
 test("Test MyClass's getStudentById", () => {
-    const myClass = new MyClass();
+    const myclass = new MyClass();
     const student1 = new Student();
-    student1.setName('John');
-    const student2 = new Student();
-    student2.setName('Jane');
-    myClass.addStudent(student1);
-    myClass.addStudent(student2);
-
-    assert.strictEqual(myClass.getStudentById(0), student1);
-    assert.strictEqual(myClass.getStudentById(1), student2);
-    assert.strictEqual(myClass.getStudentById(-1), null);
-    assert.strictEqual(myClass.getStudentById(2), null);
+    myclass.addStudent(student1);
+    assert.strictEqual(myclass.getStudentById(-1), null);
+    assert.strictEqual(myclass.getStudentById(100), null);
+    assert.strictEqual(myclass.getStudentById(0), student1);
 });
 
 test("Test Student's setName", () => {
     const student = new Student();
-    student.setName('John');
-    assert.strictEqual(student.name, 'John');
+    const name = "student1";
+    student.setName(0);
+    assert.strictEqual(student.name, undefined);
+    student.setName(name);
+    assert.strictEqual(student.name, name);
 });
 
 test("Test Student's getName", () => {
     const student = new Student();
-    student.setName('John');
-    assert.strictEqual(student.getName(), 'John');
+    const name = "student1";
+    student.setName(100);
+    assert.strictEqual(student.getName(), "");
+    student.setName(name);
+    assert.strictEqual(student.getName(), name);
 });
