@@ -2,48 +2,42 @@ const { describe, it } = require('node:test');
 const assert = require('assert');
 const { Calculator } = require('./main');
 
-// TODO: write your tests here
+describe('Calculator', function () {
+    it('exp', function () {
+        const calculator = new Calculator();
+        const testCases = [
+            { param: 0, expected: Math.exp(0) },
+            { param: 1, expected: Math.exp(1) },
+            { param: 2, expected: Math.exp(2) },
+            { param: Number.MAX_VALUE, expected: Error , errorMess: 'overflow'},
+            { param: NaN, expected: Error , errorMess: 'unsupported operand type'},
+        ];
 
-describe('Calculator', () => {
-    let calculator;
-
-    beforeEach(() => {
-        calculator = new Calculator();
+        for (const { param, expected, errorMess } of testCases) {
+            if (expected === Error) {
+                assert.throws(() => calculator.exp(param), Error(errorMess));
+            } else {
+                assert.strictEqual(calculator.exp(param), expected);
+            }
+        }
     });
+    it('log', function () {
+        const calculator = new Calculator();
+        const testCases = [
+            { param: Math.exp(0), expected: 0 },
+            { param: Math.exp(1), expected: 1 },
+            { param: Math.exp(2), expected: 2 },
+            { param: NaN, expected: Error , errorMess: 'unsupported operand type'},
+            { param: 0, expected: Error , errorMess: 'error(1)'},
+            { param: -1, expected: Error , errorMess: 'error(2)'},
+        ];
 
-    describe('exp', () => {
-        it('should calculate the exponential value correctly', () => {
-            assert.strictEqual(calculator.exp(0), Math.exp(0));
-            assert.strictEqual(calculator.exp(1), Math.exp(1));
-            assert.strictEqual(calculator.exp(2), Math.exp(2));
-        });
-
-        it('should throw an error for non-finite values', () => {
-            assert.throws(() => calculator.exp('abc'), Error);
-        });
-
-        it('should throw an error for overflow', () => {
-            assert.throws(() => calculator.exp(1000), Error);
-        });
-    });
-
-    describe('log', () => {
-        it('should calculate the natural logarithm correctly', () => {
-            assert.strictEqual(calculator.log(1), Math.log(1));
-            assert.strictEqual(calculator.log(2), Math.log(2));
-            assert.strictEqual(calculator.log(10), Math.log(10));
-        });
-
-        it('should throw an error for non-finite values', () => {
-            assert.throws(() => calculator.log('abc'), Error);
-        });
-
-        it('should throw an error for math domain error (1)', () => {
-            assert.throws(() => calculator.log(-1), Error);
-        });
-
-        it('should throw an error for math domain error (2)', () => {
-            assert.throws(() => calculator.log(0), Error);
-        });
+        for (const { param, expected, errorMess } of testCases) {
+            if (expected === Error) {
+                assert.throws(() => calculator.log(param), Error(errorMess));
+            } else {
+                assert.strictEqual(calculator.log(param), expected);
+            }
+        }
     });
 });
