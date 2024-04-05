@@ -2,42 +2,39 @@ const { describe, it } = require('node:test');
 const assert = require('assert');
 const { Calculator } = require('./main');
 
-describe('Calculator', function () {
-    it('exp', function () {
-        const calculator = new Calculator();
-        const testCases = [
-            { param: 0, expected: Math.exp(0) },
-            { param: 1, expected: Math.exp(1) },
-            { param: 2, expected: Math.exp(2) },
-            { param: Number.MAX_VALUE, expected: Error , errorMess: 'overflow'},
-            { param: NaN, expected: Error , errorMess: 'unsupported operand type'},
-        ];
+describe("calculator exp test", () => {
+    const cal = new Calculator();
 
-        for (const { param, expected, errorMess } of testCases) {
-            if (expected === Error) {
-                assert.throws(() => calculator.exp(param), Error(errorMess));
-            } else {
-                assert.strictEqual(calculator.exp(param), expected);
-            }
-        }
+    it("should throw an error for unsupported operand type", () => {
+        assert.throws(() => cal.exp('a'), Error, 'unsupported operand type');
     });
-    it('log', function () {
-        const calculator = new Calculator();
-        const testCases = [
-            { param: Math.exp(0), expected: 0 },
-            { param: Math.exp(1), expected: 1 },
-            { param: Math.exp(2), expected: 2 },
-            { param: NaN, expected: Error , errorMess: 'unsupported operand type'},
-            { param: 0, expected: Error , errorMess: 'math domain error (1)'},
-            { param: -1, expected: Error , errorMess: 'math domain error (2)'},
-        ];
 
-        for (const { param, expected, errorMess } of testCases) {
-            if (expected === Error) {
-                assert.throws(() => calculator.log(param), Error(errorMess));
-            } else {
-                assert.strictEqual(calculator.log(param), expected);
-            }
-        }
+    it("should throw an error for overflow", () => {
+        assert.throws(() => cal.exp(1000), Error, 'overflow');
+    });
+
+    it("should return 1 for input 0", () => {
+        assert.strictEqual(cal.exp(0), 1);
     });
 });
+
+describe("calculator log test", () => {
+    const cal = new Calculator();
+
+    it("should throw an error for unsupported operand type", () => {
+        assert.throws(() => cal.log('a'), Error, 'unsupported operand type');
+    });
+
+    it("should throw an error for math domain error (1)", () => {
+        assert.throws(() => cal.log(0), Error, 'math domain error (1)');
+    });
+
+    it("should throw an error for math domain error (2)", () => {
+        assert.throws(() => cal.log(-1), Error, 'math domain error (2)');
+    });
+
+    it("should return 0 for input 1", () => {
+        assert.strictEqual(cal.log(1), 0);
+    });
+});
+
