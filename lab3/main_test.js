@@ -28,8 +28,8 @@ describe('Calculator', function () {
             { param: Math.exp(1), expected: 1 },
             { param: Math.exp(2), expected: 2 },
             { param: NaN, expected: Error , errorMess: 'unsupported operand type'},
-            { param: 0, expected: Error , errorMess: 'error(1)'},
-            { param: -1, expected: Error , errorMess: 'error(2)'},
+            { param: 0, expected: Error , errorMess: 'math domain error (1)'},
+            { param: -1, expected: Error , errorMess: 'math domain error (2)'},
         ];
 
         for (const { param, expected, errorMess } of testCases) {
