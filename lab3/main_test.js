@@ -13,7 +13,7 @@ describe('Calculator', () => {
 
     describe('exp', () => {
         it('should calculate the exponential value correctly', () => {
-            assert.strictEqual(calculator.exp(0), 1);
+            assert.strictEqual(calculator.exp(0), Math.exp(0));
             assert.strictEqual(calculator.exp(1), Math.exp(1));
             assert.strictEqual(calculator.exp(2), Math.exp(2));
         });
@@ -29,7 +29,7 @@ describe('Calculator', () => {
 
     describe('log', () => {
         it('should calculate the natural logarithm correctly', () => {
-            assert.strictEqual(calculator.log(1), 0);
+            assert.strictEqual(calculator.log(1), Math.log(1));
             assert.strictEqual(calculator.log(2), Math.log(2));
             assert.strictEqual(calculator.log(10), Math.log(10));
         });
