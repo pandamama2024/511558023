@@ -10,9 +10,11 @@ const puppeteer = require('puppeteer');
     
     // 1.Click search button
     const searchSelector = '.DocSearch-Button-Placeholder';
+    await page.waitForSelector(searchSelector);
     await page.click(searchSelector);
     // 2.Type the phrase 'chipi chipi chapa chapa' into search box
-    const inputSelector = '#docsearch-input'
+    const inputSelector = '#docsearch-input';
+    await page.waitForSelector(inputSelector);
     await page.type(inputSelector, 'chipi chipi chapa chapa');
     // 3.Wait and Click on the first result
     const searchResultSelector = '#docsearch-item-5';
