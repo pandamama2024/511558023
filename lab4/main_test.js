@@ -9,11 +9,11 @@ const puppeteer = require('puppeteer');
     await page.goto('https://pptr.dev/');
     
     // 1.Click search button
-    const searchSelector = '.DocSearch-Button-Placeholder';
+    const searchSelector = '.DocSearch-Button';
     await page.waitForSelector(searchSelector);
     await page.click(searchSelector);
     // 2.Type the phrase 'chipi chipi chapa chapa' into search box
-    const inputSelector = '#docsearch-input';
+    const inputSelector = '.DocSearch-Input';
     await page.waitForSelector(inputSelector);
     await page.type(inputSelector, 'chipi chipi chapa chapa', {delay: 1000});
     // 3.Wait and Click on the first result
