@@ -15,10 +15,10 @@ const puppeteer = require('puppeteer');
     // 2.Type the phrase 'chipi chipi chapa chapa' into search box
     const inputSelector = '#docsearch-input';
     await page.waitForSelector(inputSelector);
-    await page.type(inputSelector, 'chipi chipi chapa chapa');
+    await page.type(inputSelector, 'chipi chipi chapa chapa', {delay: 1000});
     // 3.Wait and Click on the first result
-    const searchResultSelector = '#docsearch-item-5';
-    const linkSelector = await page.waitForSelector(searchResultSelector);
+    const itemSelector = '#docsearch-item-5';
+    const linkSelector = await page.waitForSelector(itemSelector);
     await linkSelector.click();
     // 4-1.Locate the full title with a unique string
     const textSelector = await page.waitForSelector('h1');
