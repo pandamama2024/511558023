@@ -9,13 +9,15 @@ const puppeteer = require('puppeteer');
     await page.goto('https://pptr.dev/');
     
     // 1.Click search button
-    await page.click('.DocSearch-Button-Placeholder');
+    const searchSelector = '.DocSearch-Button-Placeholder';
+    await page.click(searchSelector);
     // 2.Type the phrase 'chipi chipi chapa chapa' into search box
-    await page.type('.DocSearch-Input', 'chipi chipi chapa chapa');
+    const inputSelector = '#docsearch-input'
+    await page.type(inputSelector, 'chipi chipi chapa chapa');
     // 3.Wait and Click on the first result
-    const searchResultSelector = '.docsearch-item-5';
-    await page.waitForSelector(searchResultSelector);
-    await page.click(searchResultSelector);
+    const searchResultSelector = '#docsearch-item-5';
+    const linkSelector = await page.waitForSelector(searchResultSelector);
+    await linkSelector.click();
     // 4-1.Locate the full title with a unique string
     const textSelector = await page.waitForSelector('h1');
     const fullTitle = await textSelector?.evaluate(el => el.textContent);
