@@ -7,16 +7,22 @@ const puppeteer = require('puppeteer');
 
     // Navigate the page to a URL
     await page.goto('https://pptr.dev/');
-
-    // Hints:
-    // Click search button
-    // Type into search box
-    // Wait for search result
-    // Get the `Docs` result section
-    // Click on first result in `Docs` section
-    // Locate the title
-    // Print the title
-
-    // Close the browser
+    
+    // 1.Click search button
+    await page.waitForSelector('.DocSearch-Button-Placeholder');
+    await page.click('.DocSearch-Button-Placeholder');
+    // 2.Type the phrase 'chipi chipi chapa chapa' into search box
+    await page.waitForSelector('.DocSearch-Input');
+    await page.type('.DocSearch-Input', 'chipi chipi chapa chapa');
+    // 3.Wait and Click on the first result
+    const searchResultSelector = '.docsearch-item-5';
+    await page.waitForSelector(searchResultSelector);
+    await page.click(searchResultSelector);
+    // 4-1.Locate the full title with a unique string
+    const textSelector = await page.waitForSelector('h1');
+    const fullTitle = await textSelector?.evaluate(el => el.textContent);
+    // 4-2.Print the full title
+    console.log('The title of this blog post is "%s".', fullTitle);
+    // 5.Close the browser
     await browser.close();
 })();
